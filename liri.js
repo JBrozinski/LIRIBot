@@ -5,6 +5,7 @@ var keys = require("./key.js");
 var spotify = new Spotify(keys.spotify);
 // var concert = new Concert();
 // var Concert = require();
+var fs = require("fs");
 
 var command = process.argv[2];
 var search = process.argv.slice(3).join(" ");
@@ -18,22 +19,18 @@ if (command === "spotify-this-song") {
     }
 
     console.log(data.tracks);
-    console.log(
-      (url =
-        "https://rest.bandsintown.com/artists/weezer/events?app_id=codingbootcamp")
-    );
   });
 }
 
-if (command === "concert-this") {
-  concert.search({ type: "track", query: search }, function (err, data) {
-    if (err) {
-      return console.log("Error occurred: " + err);
-    }
+// if (command === "concert-this") {
+//   concert.search({ type: "track", query: search }, function (err, data) {
+//     if (err) {
+//       return console.log("Error occurred: " + err);
+//     }
 
-    console.log(data.tracks);
-  });
-}
+//     console.log(data.tracks);
+//   });
+// }
 
 if (command === "movie-this") {
   spotify.search({ type: "track", query: search }, function (err, data) {
@@ -46,11 +43,10 @@ if (command === "movie-this") {
 }
 
 if (command === "do-what-it-says") {
-  spotify.search({ type: "track", query: search }, function (err, data) {
+  fs.readFile("./random.txt", function (err, data) {
     if (err) {
       return console.log("Error occurred: " + err);
     }
-
     console.log(data);
   });
 }
